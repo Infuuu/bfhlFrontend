@@ -19,9 +19,14 @@ function App() {
     setError('');
 
     try {
+      if (!inputData.trim()) {
+        setError('Input cannot be empty');
+        return;
+      }
+
       const parsedData = JSON.parse(inputData);
 
-      const apiResponse = await fetch('http://localhost:5002/BAJAJ', {
+      const apiResponse = await fetch('https://bfhl-l5gf.onrender.com/BAJAJ', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -30,6 +35,7 @@ function App() {
       });
 
       const data = await apiResponse.json();
+      
       setResponse(data);
     } catch (err) {
       setError('Invalid JSON format');
